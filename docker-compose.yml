@@ -1,0 +1,14 @@
+web:
+  image: php:8.0-apache
+  restart: always
+  ports:
+      - "8080:80"
+  volumes:
+      - /home/msed/apm/src:/var/www/html/apm
+  links:
+      - db
+db:
+  image: mariadb:10.3.9
+  restart: always
+  environment:
+      MYSQL_ROOT_PASSWORD: apm
