@@ -1,16 +1,13 @@
 web:
-  image: php:8.0-apache
-  restart: always
-  ports:
-      - "8080:80"
-  volumes:
-      - /home/msed/apm/src:/var/www/html/apm
-  environment:
-    APM_STACK_PATH : "/home/msed/apm/src"
-  links:
-      - db
-db:
-  image: mariadb:10.3.9
-  restart: always
-  environment:
-    MYSQL_ROOT_PASSWORD: apm
+    image: nginx:latest
+    ports:
+        - "8080:80"
+    volumes:
+        - ./code:/code
+        - ./site.conf:/etc/nginx/conf.d/site.conf
+    links:
+        - php
+php:
+    image: php:7-fpm
+    volumes:
+        - ./code:/code
